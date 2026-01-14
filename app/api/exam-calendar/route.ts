@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { FilterQuery } from 'mongoose';
 import connectDB from '../../../lib/utils/db';
-import Job, { IJob } from '../../../lib/models/Job';
+import ExamCalendar from '../../../lib/models/ExamCalendar';
 import { verifyToken } from '../../../lib/utils/auth';
 
 export async function GET(request: NextRequest) {
@@ -11,33 +10,41 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
-    const search = searchParams.get('search');
+    const status = searchParams.get('status');
+    const category = searchParams.get('category');
     const state = searchParams.get('state');
+    const upcoming = searchParams.get('upcoming') === 'true';
 
-    const query: FilterQuery<IJob> = {};
+    let query: any = { isActive: true };
 
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { department: { $regex: search, $options: 'i' } }
-      ];
+    if (status) {
+      query.status = status;
+    }
+
+    if (category) {
+      query.category = category;
     }
 
     if (state) {
-      query.state = { $regex: new RegExp(`^${state}$`, 'i') };
+      query.state = state;
     }
 
-    const jobs = await Job.find(query)
-      .sort({ createdAt: -1 })
+    if (upcoming) {
+      query.examDate = { $gte: new Date() };
+      query.status = { $in: ['upcoming', 'ongoing'] };
+    }
+
+    const exams = await ExamCalendar.find(query)
+      .sort({ examDate: 1 })
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const total = await Job.countDocuments(query);
+    const total = await ExamCalendar.countDocuments(query);
 
     return NextResponse.json({
       success: true,
       data: {
-        jobs,
+        exams,
         pagination: {
           total,
           page,
@@ -47,9 +54,9 @@ export async function GET(request: NextRequest) {
       }
     });
   } catch (error) {
-    console.error('Error fetching jobs:', error);
+    console.error('Error fetching exam calendar:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch jobs' },
+      { success: false, error: 'Failed to fetch exam calendar' },
       { status: 500 }
     );
   }
@@ -79,20 +86,18 @@ export async function POST(request: NextRequest) {
     await connectDB();
 
     const body = await request.json();
-    const job = new Job(body);
-    await job.save();
+    const examCalendar = new ExamCalendar(body);
+    await examCalendar.save();
 
     return NextResponse.json({
       success: true,
-      data: job
+      data: examCalendar
     }, { status: 201 });
   } catch (error) {
-    console.error('Error creating job:', error);
+    console.error('Error creating exam calendar entry:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to create job' },
+      { success: false, error: 'Failed to create exam calendar entry' },
       { status: 500 }
     );
   }
 }
-
-

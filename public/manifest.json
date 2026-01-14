@@ -1,0 +1,16 @@
+{
+  "name": "GovtJobs",
+  "short_name": "GovtJobs",
+  "description": "Find government jobs by state",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
