@@ -162,7 +162,7 @@ export default function AdminDashboard() {
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
                   Admin Dashboard
                 </h1>
-                <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with your platform.</p>
+                <p className="text-gray-600 mt-1">Welcome back! Here is what is happening with your platform.</p>
               </div>
             </div>
             <button

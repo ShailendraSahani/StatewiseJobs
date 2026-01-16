@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import StateCard from '../components/StateCard';
 import JobCard from '../components/JobCard';
+export const dynamic = "force-dynamic";
 
 interface Job {
   _id: string;
