@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { FilterQuery } from 'mongoose';
-import connectDB from '../../../lib/utils/db';
+import {connectDB} from '../../../lib/utils/db';
 import Job, { IJob } from '../../../lib/models/Job';
 import { verifyToken } from '../../../lib/utils/auth';
 

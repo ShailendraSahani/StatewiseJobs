@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '../../../../lib/utils/db';
+import {connectDB} from '../../../../lib/utils/db';
 import Job from '../../../../lib/models/Job';
 import { verifyToken } from '../../../../lib/utils/auth';
 

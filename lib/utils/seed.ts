@@ -1,5 +1,6 @@
-import connectDB from './db';
+import {connectDB} from './db';
 import User from '../models/User';
+import Footer from '../models/Footer';
 import { hashPassword } from './auth';
 
 async function seedAdmin() {
@@ -38,4 +39,47 @@ async function seedAdmin() {
   }
 }
 
-seedAdmin();
+async function seedFooter() {
+  try {
+    await connectDB();
+
+    // Check if footer already exists
+    const existingFooter = await Footer.findOne({ isActive: true });
+    if (existingFooter) {
+      console.log('Footer already exists');
+      return;
+    }
+
+    // Create default footer
+    const footer = new Footer({
+      title: 'Statewise Jobs',
+      description: 'Find government jobs across all states in India',
+      links: [
+        { text: 'Home', url: '/' },
+        { text: 'Jobs', url: '/jobs' },
+        { text: 'States', url: '/states' },
+        { text: 'Contact', url: '/contact' },
+      ],
+      socialLinks: [
+        { platform: 'Facebook', url: 'https://facebook.com' },
+        { platform: 'Twitter', url: 'https://twitter.com' },
+        { platform: 'LinkedIn', url: 'https://linkedin.com' },
+      ],
+      copyright: '© 2024 Statewise Jobs. All rights reserved.',
+      isActive: true,
+    });
+
+    await footer.save();
+    console.log('Footer created successfully');
+  } catch (error) {
+    console.error('Error seeding footer:', error);
+  }
+}
+
+async function runSeed() {
+  await seedAdmin();
+  await seedFooter();
+  process.exit();
+}
+
+runSeed();

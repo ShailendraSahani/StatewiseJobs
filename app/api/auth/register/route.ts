@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "../../../../lib/utils/db";
+import {connectDB} from "../../../../lib/utils/db";
 import User from "../../../../lib/models/User";
 import { hashPassword, generateToken } from "../../../../lib/utils/auth";
 

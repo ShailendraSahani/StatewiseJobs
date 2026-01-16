@@ -1,3 +1,4 @@
+
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import StateCard from '../components/StateCard';
@@ -16,16 +17,16 @@ interface Job {
 }
 
 const states = [
-  { name: 'Uttar Pradesh', slug: 'uttar-pradesh', jobCount: 0 },
-  { name: 'Bihar', slug: 'bihar', jobCount: 0 },
-  { name: 'Maharashtra', slug: 'maharashtra', jobCount: 0 },
-  { name: 'West Bengal', slug: 'west-bengal', jobCount: 0 },
-  { name: 'Madhya Pradesh', slug: 'madhya-pradesh', jobCount: 0 },
-  { name: 'Tamil Nadu', slug: 'tamil-nadu', jobCount: 0 },
-  { name: 'Rajasthan', slug: 'rajasthan', jobCount: 0 },
-  { name: 'Karnataka', slug: 'karnataka', jobCount: 0 },
-  { name: 'Gujarat', slug: 'gujarat', jobCount: 0 },
-  { name: 'Delhi', slug: 'delhi', jobCount: 0 },
+  { name: 'Uttar Pradesh', slug: 'uttar-pradesh', jobCount: 0},
+  { name: 'Bihar', slug: 'bihar', jobCount: 0},
+  { name: 'Maharashtra', slug: 'maharashtra', jobCount: 0},
+  { name: 'West Bengal', slug: 'west-bengal', jobCount: 0},
+  { name: 'Madhya Pradesh', slug: 'madhya-pradesh', jobCount: 0},
+  { name: 'Tamil Nadu', slug: 'tamil-nadu', jobCount: 0},
+  { name: 'Rajasthan', slug: 'rajasthan', jobCount: 0},
+  { name: 'Karnataka', slug: 'karnataka', jobCount: 0},
+  { name: 'Gujarat', slug: 'gujarat', jobCount: 0},
+  { name: 'Delhi', slug: 'delhi', jobCount: 0},
 ];
 
 async function getLatestJobs() {
@@ -99,7 +100,7 @@ export default async function Page() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {states.map((state) => (
+            {dynamicStates.map((state) => (
               <StateCard key={state.slug} state={state} />
             ))}
           </div>

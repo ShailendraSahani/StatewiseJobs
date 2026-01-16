@@ -56,7 +56,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">{footerData.title}</h3>
@@ -95,6 +95,32 @@ export default function Footer() {
                   {social.platform}
                 </a>
               ))}
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+            <div className="space-y-2 text-gray-300">
+              <p>{footerData.contactInfo?.address || '123 Main Street, New Delhi, India'}</p>
+              <p>{footerData.contactInfo?.phone || '+91-7388711487'}</p>
+              <p>{footerData.contactInfo?.email || 'info@statewisejobs.com'}</p>
+            </div>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">{footerData.newsletterSignup?.title || 'Stay Updated'}</h4>
+            <p className="text-gray-300 mb-4">{footerData.newsletterSignup?.description || 'Subscribe to our newsletter for the latest job updates'}</p>
+            <div className="flex">
+              <input
+                type="email"
+                placeholder={footerData.newsletterSignup?.placeholder || 'Enter your email address'}
+                className="flex-1 px-3 py-2 text-gray-800 rounded-l-md focus:outline-none"
+              />
+              <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-md transition-colors">
+                Subscribe
+              </button>
             </div>
           </div>
         </div>

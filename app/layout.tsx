@@ -1,8 +1,11 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SessionProviderWrapper from '../components/SessionProviderWrapper';
 import ServiceWorkerRegister from '../components/ServiceWorkerRegister';
 import Footer from '@/components/Footer';
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,22 +21,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "statewisejobs",
   description: "Shailendra sahani",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "GovtJobs",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#2563eb" />
-        <link rel="apple-touch-icon" href="/icon-192x192.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="GovtJobs" />
+     <head>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

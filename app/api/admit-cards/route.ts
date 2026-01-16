@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { FilterQuery } from 'mongoose';
-import connectDB from '../../../lib/utils/db';
+import {connectDB} from '../../../lib/utils/db';
 import AdmitCard, { IAdmitCard } from '../../../lib/models/AdmitCard';
 
 export async function GET(request: NextRequest) {

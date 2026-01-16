@@ -11,6 +11,16 @@ export interface IFooter extends Document {
     platform: string;
     url: string;
   }[];
+  contactInfo: {
+    address: string;
+    phone: string;
+    email: string;
+  };
+  newsletterSignup: {
+    title: string;
+    description: string;
+    placeholder: string;
+  };
   copyright: string;
   isActive: boolean;
   createdAt: Date;
@@ -28,6 +38,16 @@ const FooterSchema: Schema = new Schema({
     platform: { type: String, required: true },
     url: { type: String, required: true }
   }],
+  contactInfo: {
+    address: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, required: true }
+  },
+  newsletterSignup: {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    placeholder: { type: String, required: true }
+  },
   copyright: { type: String, required: true },
   isActive: { type: Boolean, default: true },
 }, {

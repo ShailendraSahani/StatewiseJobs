@@ -1,44 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {connectDB} from '../../../../lib/utils/db';
-import Job from '../../../../lib/models/Job';
+import Result from '../../../../lib/models/Result';
 import { verifyToken } from '../../../../lib/utils/auth';
-
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const { id } = await params;
-    await connectDB();
-
-    const job = await Job.findById(id);
-
-    if (!job) {
-      return NextResponse.json(
-        { success: false, error: 'Job not found' },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: job
-    });
-  } catch (error) {
-    console.error('Error fetching job:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch job' },
-      { status: 500 }
-    );
-  }
-}
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
     // Verify admin token
     const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -60,27 +29,30 @@ export async function PUT(
 
     await connectDB();
 
+    const { id } = params;
     const body = await request.json();
-    const job = await Job.findByIdAndUpdate(id, body, {
-      new: true,
-      runValidators: true
-    });
 
-    if (!job) {
+    const updatedResult = await Result.findByIdAndUpdate(
+      id,
+      body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedResult) {
       return NextResponse.json(
-        { success: false, error: 'Job not found' },
+        { success: false, error: 'Result not found' },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      data: job
+      data: updatedResult
     });
   } catch (error) {
-    console.error('Error updating job:', error);
+    console.error('Error updating result:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update job' },
+      { success: false, error: 'Failed to update result' },
       { status: 500 }
     );
   }
@@ -88,10 +60,9 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
     // Verify admin token
     const authHeader = request.headers.get('authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -113,23 +84,25 @@ export async function DELETE(
 
     await connectDB();
 
-    const job = await Job.findByIdAndDelete(id);
+    const { id } = params;
 
-    if (!job) {
+    const deletedResult = await Result.findByIdAndDelete(id);
+
+    if (!deletedResult) {
       return NextResponse.json(
-        { success: false, error: 'Job not found' },
+        { success: false, error: 'Result not found' },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Job deleted successfully'
+      message: 'Result deleted successfully'
     });
   } catch (error) {
-    console.error('Error deleting job:', error);
+    console.error('Error deleting result:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to delete job' },
+      { success: false, error: 'Failed to delete result' },
       { status: 500 }
     );
   }
