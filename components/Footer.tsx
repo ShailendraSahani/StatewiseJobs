@@ -14,6 +14,16 @@ interface FooterData {
     platform: string;
     url: string;
   }[];
+  contactInfo: {
+    address: string;
+    phone: string;
+    email: string;
+  };
+  newsletterSignup: {
+    title: string;
+    description: string;
+    placeholder: string;
+  };
   copyright: string;
 }
 

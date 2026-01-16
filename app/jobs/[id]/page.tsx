@@ -1,5 +1,6 @@
 import Header from '../../../components/Header';
 import { notFound } from 'next/navigation';
+export const dynamic = "force-dynamic";
 
 interface Job {
   _id: string;

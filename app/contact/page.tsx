@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+export const dynamic = "force-dynamic";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ export default function ContactPage() {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Contact Us</h1>
-          <p className="text-gray-600">Get in touch with us. We'd love to hear from you!</p>
+          <p className="text-gray-600">Get in touch with us. We had love to hear from you!</p>
         </div>
 
         {success && (

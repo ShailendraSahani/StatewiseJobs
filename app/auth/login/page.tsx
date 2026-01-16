@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+export const dynamic = "force-dynamic";
 
 function LoginForm() {
   const [formData, setFormData] = useState({

@@ -1,5 +1,5 @@
 'use client';
-
+export const dynamic = "force-dynamic";
 import Header from '../../components/Header';
 import StateCard from '../../components/StateCard';
 import { useState, useEffect } from 'react';

@@ -1,6 +1,7 @@
 import Header from '../../../components/Header';
 import JobCard from '../../../components/JobCard';
 import { Suspense } from 'react';
+export const dynamic = "force-dynamic";
 
 interface Job {
   _id: string;
